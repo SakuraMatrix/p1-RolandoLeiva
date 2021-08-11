@@ -5,6 +5,8 @@ USE creditCard;
 CREATE TABLE IF NOT EXISTS cards (
     item_id int,
     name text,
-    price double,
+    cardType text,
+    minPay double,
+    creditLimit double,
     PRIMARY KEY (item_id, name)
 );
