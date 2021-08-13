@@ -1,4 +1,4 @@
-package com.github.RolandoLeiva.CreditCardApp;
+package com.github.RolandoLeiva.CreditCardApp.domain;
 
 public class CreditCard {
     private String cardNumber;

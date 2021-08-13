@@ -9,4 +9,3 @@ CREATE TABLE IF NOT EXISTS cards (
     exp_date text,
     PRIMARY KEY (card_num, type)
 );
-INSERT INTO card()
