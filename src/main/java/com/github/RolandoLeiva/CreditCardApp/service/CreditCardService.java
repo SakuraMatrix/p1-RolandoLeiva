@@ -22,7 +22,7 @@ public class CreditCardService {
     public Mono<CreditCard> get(String id) {return connect.get(Integer.parseInt(id));}
 
     public  CreditCard create(CreditCard card) {
-        return connect.insert(card);
+        return connect.create(card);
     }
 
 }
