@@ -9,3 +9,5 @@ CREATE TABLE IF NOT EXISTS cards (
     exp_date text,
     PRIMARY KEY (card_num, type)
 );
+INSERT INTO cards(card_num,type,ccv,exp_date) VALUES('12345678912345','Visa','987','08-25');
+INSERT INTO cards(card_num,type,ccv,exp_date) VALUES('987654321012','MasterCard','357','02-25');

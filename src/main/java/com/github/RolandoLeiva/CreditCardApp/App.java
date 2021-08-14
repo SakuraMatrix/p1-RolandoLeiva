@@ -24,14 +24,15 @@ public class App
     public static void main(String[] args) throws URISyntaxException {
         Logger log = LoggerFactory.getLogger(App.class);
         log.info("Starting App");
+
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         applicationContext.getBean(DisposableServer.class).onDispose().block();
         //CreditCard c = new CreditCard();
-       // CqlSession cqlSession = CqlSession.builder().build();
+        //CqlSession cqlSession = CqlSession.builder().build();
        // CQLConnect con = new CQLConnect(cqlSession);
-        //c= c.applyMasterCard();
-        //System.out.println(c.getCardNumber());
-        //System.out.println(c.getType());
+       // c= c.applyMasterCard();
+       // System.out.println(c.getCardNumber());
+       // System.out.println(c.getType());
        // System.out.println(c.getCvv());
        // System.out.println(c.getExpDate());
        // con.insert(c);

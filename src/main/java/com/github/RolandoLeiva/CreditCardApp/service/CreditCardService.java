@@ -19,12 +19,10 @@ public class CreditCardService {
         return connect.getAll();
     }
 
-    public Mono<CreditCard> get(String id) {
-        return connect.get(Integer.parseInt(id));
-    }
+    public Mono<CreditCard> get(String id) {return connect.get(Integer.parseInt(id));}
 
-    public  CreditCard create(CreditCard item) {
-        return connect.insert(item);
+    public  CreditCard create(CreditCard card) {
+        return connect.insert(card);
     }
 
 }

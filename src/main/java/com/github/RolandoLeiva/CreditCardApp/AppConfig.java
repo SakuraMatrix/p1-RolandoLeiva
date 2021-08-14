@@ -35,10 +35,14 @@ public class AppConfig {
                                 response.send(creditCardService.getAll()
                                         .map(App::toByteBuf)
                                         .log("http-server")))
-                                .post("/cards/{param}", (request, response) ->
+                                .post("/cards", (request, response) ->
                                         response.send(request.receive().asString()
                                                 .map(App::parseItem)
                                                 .map(creditCardService::create)
+                                                .map(App::toByteBuf)
+                                                .log("http-server")))
+                                .get("/items/{param}", (request, response) ->
+                                        response.send(creditCardService.get(request.param("param"))
                                                 .map(App::toByteBuf)
                                                 .log("http-server")))
                                 .get("/error", (request, response) ->
