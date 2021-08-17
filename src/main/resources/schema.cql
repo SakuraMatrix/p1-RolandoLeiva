@@ -11,3 +11,10 @@ CREATE TABLE IF NOT EXISTS cards (
 );
 INSERT INTO cards(card_num,type,ccv,exp_date) VALUES('12345678912345','Visa','987','08-25');
 INSERT INTO cards(card_num,type,ccv,exp_date) VALUES('987654321012','MasterCard','357','02-25');
+
+CREATE TABLE IF NOT EXISTS payment(
+    user text,
+    card_num text,
+    min_payment text,
+    payment_amount text,
+    PRIMARY KEY (user, card_num));

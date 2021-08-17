@@ -6,9 +6,6 @@ public class CreditCard {
     private String expDate;
     private String type;
 
-    public CreditCard() {
-    }
-
     public CreditCard(String cardNumber, String cvv, String expDate, String type) {
         this.cardNumber = cardNumber;
         this.cvv = cvv;
@@ -16,6 +13,15 @@ public class CreditCard {
         this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "Item{" +
+                "number=" + cardNumber +
+                ", cvv='" + cvv + '\'' +
+                ", expiration Date=" + expDate +
+                ", Type=" + type +
+                '}';
+    }
     public CreditCard applyVisa()
     {
         System.out.println("Congratulations. You have been accepted for a Visa credit card");
@@ -86,4 +92,5 @@ public class CreditCard {
     public void setType(String type) {
         this.type = type;
     }
+
 }

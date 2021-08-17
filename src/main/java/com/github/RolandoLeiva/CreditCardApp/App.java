@@ -1,10 +1,9 @@
 package com.github.RolandoLeiva.CreditCardApp;
 
-import com.datastax.oss.driver.api.core.CqlSession;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.RolandoLeiva.CreditCardApp.domain.CreditCard;
-import com.github.RolandoLeiva.CreditCardApp.repository.CQLConnect;
+import com.github.RolandoLeiva.CreditCardApp.domain.Payment;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import org.slf4j.Logger;
@@ -14,28 +13,19 @@ import reactor.netty.DisposableServer;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 
 public class App
 {
     static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args)  {
         Logger log = LoggerFactory.getLogger(App.class);
         log.info("Starting App");
-
         AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        applicationContext.getBean(DisposableServer.class).onDispose().block();
-        //CreditCard c = new CreditCard();
-        //CqlSession cqlSession = CqlSession.builder().build();
-       // CQLConnect con = new CQLConnect(cqlSession);
-       // c= c.applyMasterCard();
-       // System.out.println(c.getCardNumber());
-       // System.out.println(c.getType());
-       // System.out.println(c.getCvv());
-       // System.out.println(c.getExpDate());
-       // con.insert(c);
+        applicationContext.getBean(DisposableServer.class)
+                .onDispose()
+                .block();
         log.info("Exiting App");
     }
     static ByteBuf toByteBuf(Object o) {
@@ -47,8 +37,8 @@ public class App
         }
         return ByteBufAllocator.DEFAULT.buffer().writeBytes(out.toByteArray());
     }
-    static CreditCard parseItem(String str) {
-        CreditCard card = null;
+    static CreditCard parseCard(String str) {
+        CreditCard card;
         try {
             card = OBJECT_MAPPER.readValue(str, CreditCard.class);
         } catch (JsonProcessingException ex) {
@@ -60,5 +50,42 @@ public class App
             card = new CreditCard(number, cvv, exp,type);
         }
         return card;
+    }
+    static Payment parsePay(String str) {
+        Payment pay;
+        try {
+            pay = OBJECT_MAPPER.readValue(str, Payment.class);
+            System.out.println("inside Parse Pay try");
+        } catch (JsonProcessingException ex) {
+            System.out.println("inside Parse Pay catch 1 ");
+            System.out.println(str);
+            String[] params = str.split("&");
+            if(!(params[0].split("=")[0].equals("user")))
+            {
+                System.out.println("inside Parse Pay if ");
+                params = str.split(",");
+                String user = params[0].split(":")[1];
+                String number = params[1].split(":")[1];
+                String min = params[2].split(":")[1];
+                String amount = params[3].split(":")[1];
+                pay = new Payment(user, number, min,amount.substring(0,amount.length()-1));
+            }
+            else {
+                System.out.println("inside Parse Pay else");
+                String user = params[0].split("=")[1];
+                String number = params[1].split("=")[1];
+                String min = params[2].split("=")[1];
+                String amount = params[3].split("=")[1];
+                pay = new Payment(user, number, min, amount);
+            }
+        }
+        catch(Exception ex)
+        {
+            System.out.println("inside Parse Pay catch 2");
+            System.out.println(str);
+            pay =null;
+
+        }
+        return pay;
     }
 }
