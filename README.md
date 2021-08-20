@@ -6,9 +6,8 @@ CreditTracker is a program that allows the user to see what type of credit cards
 - Log in to the system
 - See all credit cards in the user's account
 - Add a credit card to the account
-- Deactivate a credit card.
 - Make a payment on any credit card.
-- See the due date on each credit card.
+- See all payments on each credit card.
 ## Technology Stacks
 - Java 8
 - Junit
