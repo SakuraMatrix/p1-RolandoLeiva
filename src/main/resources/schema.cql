@@ -18,3 +18,4 @@ CREATE TABLE IF NOT EXISTS payment(
     min_payment text,
     payment_amount text,
     PRIMARY KEY (user, card_num));
+INSERT INTO payment(user,card_num,min_payment,payment_amount) VALUES('KOD','12345678912345','20.00','25.00');

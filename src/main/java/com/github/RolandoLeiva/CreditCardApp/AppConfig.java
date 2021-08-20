@@ -55,13 +55,13 @@ public class AppConfig {
                                 .get("/error", (request, response) ->
                                         response.status(404).addHeader("Message", "Goofed")
                                                 .sendFile(errorHTML))
-                                .post("/submit", (request, response) ->
+                                .post("/", (request, response) ->
                                         response.send(request.receive().asString()
                                                 .map(App::parseCard)
                                                 .map(creditCardService::create)
                                                 .map(App::toByteBuf)
                                                 .log("http-server")))
-                                .get("/submit", (request, response) ->
+                                .get("/", (request, response) ->
                                         response.sendFile(indexHTML))
                                 .get("/payment", (request, response) ->
                                         response.send(paymentService.getAll()
@@ -71,7 +71,7 @@ public class AppConfig {
                                         response.send(paymentService.get(request.param("param"))
                                                 .map(App::toByteBuf)
                                                 .log("http-server")))
-                                .post("/payed", (request, response) ->
+                                .post("/pay", (request, response) ->
                                         response.send(request.receive().asString()
                                                 .map(App::parsePay)
                                                 .map(paymentService::create)
@@ -84,6 +84,7 @@ public class AppConfig {
 
                 )
                 .bindNow();
+
 
     }
 
